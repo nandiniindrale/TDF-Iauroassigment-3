@@ -1,0 +1,61 @@
+<!-- USING @VIEWCHILD  -->
+
+<!--<form (ngSubmit)="onSubmit()" #myForm="ngForm">  -->
+
+<!-- USING ngForm  -->
+
+<div class="container col-md-6 col-md-offset-3">
+<form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+<div ngModelGroup="userdetail" #userdetail="ngModelGroup">
+  <div class="form-group">
+    <label for="Username">Username*</label>
+    <input type="text" class="form-control"
+     id="username" name="username" ngModel required>
+  </div>
+
+  <div class="form-group">
+    <label for="Email">Email*</label>
+    <input type="email" class="form-control" 
+    id="Email" name="email" ngModel email required #email="ngModel">
+    <small class="text-danger" 
+    *ngIf="!email.valid && email.touched">Please Enter Valid Email</small>
+  </div>
+  <span class="text-danger"
+  *ngIf="!userdetail.valid && userdetail.touched">please Enter valid details</span>
+</div>
+  
+  <div class="form-group">
+  <label for="course">Select course</label>
+  <select  class="form-control" id="course"  name="course" ngModel>
+  <option  value="angular">Angular</option>
+  <option  value="html">Html</option>
+  <option  value="css">CSS</option>
+  </select>
+  </div>
+ <br>
+  <h6>Batch Time</h6>
+  <div class="radio" *ngFor="let ans of anss">
+    <label>
+      <input type="radio" name="ans" ngModel [value]="ans" 
+       required [ngModel]="default">{{ ans }}
+    </label>
+  </div>
+
+  <br>
+  
+  <button type="submit" class="btn btn-primary"
+  [disabled]="!myForm.valid">Submit</button>
+
+</form>
+</div>
+
+
+<div class="row justify-content-center" *ngIf="submitted">
+<div class="col-md-6 ">
+<h2>FORM DATA</h2>
+<p>Username:{{formData.username}}</p>
+<p>Email:{{formData.Email}}</p>
+<p>Course:{{formData.Course}}</p>
+<p>Batch time:{{formData.BatchTime}}</p>
+</div>
+</div>
